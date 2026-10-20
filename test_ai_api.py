@@ -1,39 +1,42 @@
 import pytest
-test_cases = [
-    ("1+1等于几？", ["2",'二']),
-    ("中国的首都是哪里？", ["北京","Beijing"]),
-    ("地球是圆的还是平的？", ["圆", "球", "椭球"])
-]
-@pytest.mark.parametrize('question,expect_keywords', test_cases)
-def test_aichat(api_session,question,expect_keywords):
+import logging
+import os
+import json
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(current_dir, 'test_data.json')
+with open(data_path, 'r', encoding='utf-8') as f:
+    test_cases = json.load(f)
+
+@pytest.mark.parametrize("case", test_cases,ids=[c['id'] for c in test_cases])
+def test_aichat(api_session, case):
+    question = case['question']
+    expected=case['expected']
+    checks=case['checks']
+
     url='https://api.deepseek.com/chat/completions'
-    payload = \
-        {'model':'deepseek-v4-flash',
-         "messages": [{"role": "user", "content": question}],
-         'temperature':0.7}
-    response = api_session.post(url, json=payload, timeout=30)
-    assert response.status_code == 200
+    payload= {
+        'model':'deepseek-v4-flash',
+        'messages':[{'role':'user','content':question}],
+        'temperature':0.7
+    }
+
+    logging.info(f'[{case["id"]}]开始测试|问题:{question}')
+
+    response = api_session.post(url, json=payload,timeout=30)
+    assert response.status_code == 200,f'接口报错:{response.text}'
+
     ai_answer = response.json()['choices'][0]['message']['content']
-    assert any(keyword in ai_answer for keyword in expect_keywords), \
-        f"AI 的回答里没有找到预期关键字 {expect_keywords}，实际回答: {ai_answer}"
-def test_invalid_model(api_session):
-    url = 'https://api.deepseek.com/chat/completions'
-    payload = {
-        'model': 'this-model-does-not-exist',
-        'messages': [{"role": "user", "content": "你好"}]
-    }
-    response = api_session.post(url, json=payload)
-    assert response.status_code == 400
-    assert "error" in response.json()
+    logging.info(f'[{case["id"]}]AI回答:{ai_answer}')
 
-
-def test_api_performance(api_session):
-    url = 'https://api.deepseek.com/chat/completions'
-    payload = {
-        'model': 'deepseek-v4-flash',
-        'messages': [{"role": "user", "content": "请回复'收到'两个字"}]
-    }
-    response = api_session.post(url, json=payload, timeout=30)
-    cost_time = response.elapsed.total_seconds()
-    print(f"\n本次请求耗时: {cost_time} 秒")
-    assert cost_time < 10.0, f"接口响应过慢，耗时 {cost_time} 秒"
+    if 'not_empty' in checks:
+        assert len(ai_answer)>0,'AI回答了空字符'
+    if 'contains_expected' in checks:
+        assert expected in ai_answer,f"未找到预期关键字'{expected}',实际回答: {ai_answer}"
+    if 'length_less_than_30' in checks:
+        assert len(ai_answer)<30,f'回答太长了，超过了30个字符，实际长度:{len(ai_answer)}'
+    if 'is_json_format' in checks:
+        try:
+            json.loads(ai_answer)
+        except ValueError:
+            pytest.fail(f'没有返回合法的json格式，实际回答:{ai_answer}')

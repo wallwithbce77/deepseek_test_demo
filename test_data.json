@@ -1,0 +1,107 @@
+[
+  {
+    "id": "TC001",
+    "category": "正常功能",
+    "question": "1+1等于多少？",
+    "expected": "2",
+    "checks": ["not_empty", "contains_expected"]
+  },
+  {
+    "id": "TC002",
+    "category": "正常功能",
+    "question": "中国的首都是哪里？",
+    "expected": "北京",
+    "checks": ["not_empty", "contains_expected"]
+  },
+  {
+    "id": "TC003",
+    "category": "正常功能",
+    "question": "地球是圆的还是平的？",
+    "expected": "球",
+    "checks": ["not_empty", "contains_expected"]
+  },
+  {
+    "id": "TC004",
+    "category": "指令遵循",
+    "question": "请用一句话介绍你自己，字数不能超过20个字。",
+    "expected": "DeepSeek",
+    "checks": ["length_less_than_30", "not_empty"]
+  },
+  {
+    "id": "TC005",
+    "category": "指令遵循",
+    "question": "请输出一段严格的JSON格式，包含字段：name和age。",
+    "expected": "name",
+    "checks": ["is_json_format"]
+  },
+  {
+    "id": "TC006",
+    "category": "边界测试",
+    "question": "   ",
+    "expected": "",
+    "checks": ["not_empty"]
+  },
+  {
+    "id": "TC007",
+    "category": "指令遵循",
+    "question": "请把以下英文翻译成中文：Hello World",
+    "expected": "你好",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC008",
+    "category": "正常功能",
+    "question": "Python是一门什么语言？",
+    "expected": "编程",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC009",
+    "category": "指令遵循",
+    "question": "给我列出一个只有三个步骤的做菜方法（必须编号）。",
+    "expected": "1.",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC010",
+    "category": "正常功能",
+    "question": "太阳从哪边升起？",
+    "expected": "东",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC011",
+    "category": "稳定性",
+    "question": "1+1等于多少？（请再次回答）",
+    "expected": "2",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC012",
+    "category": "稳定性",
+    "question": "中国的首都是哪里？（请再次回答）",
+    "expected": "北京",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC013",
+    "category": "边界测试",
+    "question": "A",
+    "expected": "A",
+    "checks": ["not_empty"]
+  },
+  {
+    "id": "TC014",
+    "category": "正常功能",
+    "question": "苹果的英文单词是什么？",
+    "expected": "apple",
+    "checks": ["contains_expected"]
+  },
+  {
+    "id": "TC015",
+    "category": "异常测试",
+    "question": "请告诉我今天的准确股票大盘指数。",
+    "expected": "无法",
+    "checks": ["not_empty"]
+  }
+]
