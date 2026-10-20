@@ -1,17 +1,21 @@
-# DeepSeek API 自动化测试项目
+# DeepSeek API 自动化测试框架 (Data-Driven)
 
-这是一个基于 Python 的大模型接口自动化测试练手项目。使用 `pytest` 和 `requests` 对 DeepSeek 的 Chat API 进行测试，验证接口连通性、响应状态以及模型回答的准确性。
+这是一个基于 Python + Pytest 搭建的大模型 API 自动化测试项目。用于验证 DeepSeek 对话接口的连通性、业务逻辑准确性、指令遵循能力以及响应性能。
 
-技术栈
--开发语言：Python 3.13
--测试框架：pytest
--网络请求：requests
--环境隔离：python-dotenv
+## 🛠️ 技术栈
+- **开发语言**：Python 3.10+
+- **测试框架**：pytest
+- **网络请求**：requests
+- **环境隔离**：python-dotenv (安全读取 API Key)
+- **数据驱动**：JSON (数据与逻辑分离)
 
-项目结构
+## 📁 项目结构
+```text
 ai_test_pro/
-├── .env                  # 本地私有配置文件，存放 DEEPSEEK_API_KEY（不提交至 Git）
+├── .env                  # 本地私有配置，存放 DEEPSEEK_API_KEY（已屏蔽）
 ├── .gitignore            # Git 忽略配置，防止密钥和缓存泄露
-├── conftest.py           # 全局夹具(Fixture)，负责初始化带鉴权的 Session
+├── conftest.py           # 全局 Fixture，初始化带鉴权的 Session
+├── test_data.json        # 测试用例数据源（15条用例，覆盖多维场景）
+├── test_ai_api.py        # 核心测试执行引擎
 ├── requirements.txt      # 项目依赖清单
-└── test_ai_api.py        # 核心测试用例文件
+└── README.md             # 项目说明文档
