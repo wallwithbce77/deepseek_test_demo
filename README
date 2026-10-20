@@ -1,6 +1,6 @@
-# DeepSeek API 自动化测试框架 (Data-Driven)
+# DeepSeek API 自动化测试框架 (Data-Driven & HTML Report)
 
-这是一个基于 Python + Pytest 搭建的大模型 API 自动化测试项目。用于验证 DeepSeek 对话接口的连通性、业务逻辑准确性、指令遵循能力以及响应性能。
+这是一个基于 Python + Pytest 搭建的大模型 API 自动化测试项目。用于验证 DeepSeek 对话接口的连通性、业务逻辑准确性、指令遵循能力以及响应性能，并支持一键生成可视化 HTML 测试报告。
 
 ## 🛠️ 技术栈
 - **开发语言**：Python 3.10+
@@ -8,14 +8,52 @@
 - **网络请求**：requests
 - **环境隔离**：python-dotenv (安全读取 API Key)
 - **数据驱动**：JSON (数据与逻辑分离)
+- **报告生成**：pytest-html
 
 ## 📁 项目结构
 ```text
 ai_test_pro/
 ├── .env                  # 本地私有配置，存放 DEEPSEEK_API_KEY（已屏蔽）
-├── .gitignore            # Git 忽略配置，防止密钥和缓存泄露
+├── .gitignore            # Git 忽略配置，防止密钥、缓存和报告文件泄露
 ├── conftest.py           # 全局 Fixture，初始化带鉴权的 Session
 ├── test_data.json        # 测试用例数据源（15条用例，覆盖多维场景）
 ├── test_ai_api.py        # 核心测试执行引擎
 ├── requirements.txt      # 项目依赖清单
+├── report_screenshot.png # HTML 测试报告截图
 └── README.md             # 项目说明文档
+
+🚀 快速开始
+1. 安装依赖
+bash
+pip install -r requirements.txt
+
+2. 配置环境变量
+在根目录创建 .env 文件，填入真实的 API Key：
+text
+DEEPSEEK_API_KEY=sk-你的真实密钥
+
+3. 运行测试
+bash
+# 仅运行测试
+pytest -v
+
+# 运行测试并生成 HTML 报告
+pytest -v --html=report.html --self-contained-html
+
+✨ 核心设计与亮点
+数据驱动测试 (DDT)：摒弃硬编码，将 15 条测试用例抽离至 test_data.json。实现“数据与逻辑分离”，后续新增用例只需修改 JSON 文件，无需改动一行 Python 代码。
+
+动态断言引擎 (Dynamic Assertion)：针对大模型输出具有“非确定性（随机性）”的特点，设计了基于 JSON checks 字段的动态断言规则。
+
+支持多维度校验：not_empty（非空）、contains_expected（关键字包含）、length_less_than_30（指令遵循/字数限制）、is_json_format（结构化输出校验）。
+
+全场景用例覆盖：内置 15 条用例，覆盖正常功能、边界测试（空字符串等）、指令遵循（JSON格式、字数限制）与稳定性测试。
+
+高效鉴权与性能断言：利用 fixture(scope="session") 复用 requests.Session，提升执行效率；并引入 response.elapsed 对接口响应耗时进行性能断言。
+
+安全防泄露：使用 python-dotenv 读取密钥，配合 .gitignore 严防 API Key 提交至代码仓库。
+
+📊 测试报告概览
+执行 pytest --html=report.html 后，会自动生成可视化测试报告。包含环境信息、用例通过率及单条用例耗时。
+
+https://report_screenshot.png/
