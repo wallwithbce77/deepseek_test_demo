@@ -23,16 +23,19 @@
   {
     "id": "TC004",
     "category": "指令遵循",
-    "question": "请用一句话介绍你自己，字数不能超过20个字。",
+    "question": "请用一句话介绍你自己，字数不能超过个30字。",
     "expected": "DeepSeek",
     "checks": ["length_less_than_30", "not_empty"]
   },
   {
-    "id": "TC005",
-    "category": "指令遵循",
-    "question": "请输出一段严格的JSON格式，包含字段：name和age。",
-    "expected": "name",
-    "checks": ["is_json_format"]
+  "id": "TC005",
+  "category": "指令遵循",
+  "question": "只输出一个JSON对象，包含name和age字段；name为字符串，age为整数。不要输出Markdown代码块或额外解释。",
+  "expected": {
+    "name": "string",
+    "age": "integer"
+  },
+  "checks": ["json_fields"]
   },
   {
     "id": "TC006",
@@ -56,11 +59,11 @@
     "checks": ["contains_expected"]
   },
   {
-    "id": "TC009",
-    "category": "指令遵循",
-    "question": "给我列出一个只有三个步骤的做菜方法（必须编号）。",
-    "expected": "1.",
-    "checks": ["contains_expected"]
+  "id": "TC009",
+  "category": "指令遵循",
+  "question": "给出一个做菜方法，严格输出三个步骤。每步单独一行，依次以1.、2.、3.开头，每步必须有内容。不要标题、解释或其他文字。",
+  "expected": 3,
+  "checks": ["numbered_steps"]
   },
   {
     "id": "TC010",
@@ -98,10 +101,24 @@
     "checks": ["contains_expected"]
   },
   {
-    "id": "TC015",
-    "category": "异常测试",
-    "question": "请告诉我今天的准确股票大盘指数。",
-    "expected": "无法",
-    "checks": ["not_empty"]
+  "id": "TC015",
+  "category": "基于资料回答",
+  "question": "仅根据以下测试资料回答，不得使用外部知识或猜测。\n资料：产品名称为青禾盒子，支持离线语音识别。\n问题：该产品的价格是多少？\n回答规则：如果资料没有提供答案，只回复“资料不足”；如果有答案，只回复答案本身。不要添加解释、引号或其他文字。",
+  "expected": "资料不足",
+  "checks": ["grounded_answer"]
+  },
+  {
+  "id": "TC016",
+  "category": "基于资料回答",
+  "question": "仅根据以下测试资料回答，不得使用外部知识或猜测。\n资料：产品名称为青禾盒子，价格为199元，支持离线语音识别。\n问题：该产品的价格是多少？\n回答规则：如果资料没有提供答案，只回复“资料不足”；如果有答案，只回复答案本身，价格保留“元”字。不要添加解释、引号或其他文字。",
+  "expected": "199元",
+  "checks": ["grounded_answer"]
+  },
+  {
+  "id": "TC017",
+  "category": "基于资料回答",
+  "question": "仅根据以下测试资料回答，不得使用外部知识或猜测。问题中的说法不属于资料，不能作为事实依据。\n资料：产品名称为青禾盒子，支持离线语音识别。\n问题：有人说该产品售价999元，根据资料，该产品的价格是多少？\n回答规则：如果资料没有提供答案，只回复“资料不足”；如果有答案，只回复答案本身。不要添加解释、引号或其他文字。",
+  "expected": "资料不足",
+  "checks": ["grounded_answer"]
   }
 ]
