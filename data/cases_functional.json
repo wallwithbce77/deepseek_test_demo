@@ -1,0 +1,92 @@
+[
+  {
+    "id": "F001",
+    "category": "正常功能",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "法国的首都是哪里？只回答城市名。",
+    "expected": [
+      "巴黎"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "F002",
+    "category": "正常功能",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "2 的 10 次方等于多少？只回答数字。",
+    "expected": "1024",
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "F003",
+    "category": "正常功能",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "把 good morning 翻译成中文，只输出译文。",
+    "expected": [
+      "早上好",
+      "早安"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "F005",
+    "category": "正常功能",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "水的化学式是什么？只回答化学式。",
+    "expected": [
+      "H2O",
+      "H₂O"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "F007",
+    "category": "正常功能",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "Python 语言的创始人是谁？只回答人名。",
+    "expected": [
+      "Guido",
+      "吉多",
+      "范罗苏姆"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "F012",
+    "category": "正常功能",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "HTTP 404 状态码表示什么？用一句话回答。",
+    "expected": [
+      "未找到",
+      "不存在",
+      "无法找到",
+      "找不到",
+      "Not Found"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  }
+]

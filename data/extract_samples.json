@@ -1,0 +1,169 @@
+[
+  {
+    "id": "EX001",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "键值列表",
+    "difficulty": "easy",
+    "text": "采购单号：PO-2026-0912\n供应商：苏州精工零部件有限公司\n订单金额：￥12,800.00\n要求交付日期：2026-11-05",
+    "expected": {
+      "order_no": "PO-2026-0912",
+      "supplier": "苏州精工零部件有限公司",
+      "amount": 12800.0,
+      "deliver_date": "2026-11-05"
+    }
+  },
+  {
+    "id": "EX002",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "表格",
+    "difficulty": "easy",
+    "text": "| 采购单号 | 供应商 | 金额（元） | 交付日期 |\n| --- | --- | --- | --- |\n| PO-2026-1001 | 昆山华辰电子 | 45800 | 2026/12/01 |",
+    "expected": {
+      "order_no": "PO-2026-1001",
+      "supplier": "昆山华辰电子",
+      "amount": 45800,
+      "deliver_date": "2026-12-01"
+    }
+  },
+  {
+    "id": "EX003",
+    "category": "字段提取",
+    "language": "en",
+    "layout": "键值列表",
+    "difficulty": "normal",
+    "text": "Invoice No.: PO-2026-1107\nSupplier: Bosch Rexroth (Suzhou) Co., Ltd.\nTotal Amount: EUR 8,450.50\nDelivery Date: 2026-12-15",
+    "expected": {
+      "order_no": "PO-2026-1107",
+      "supplier": "Bosch Rexroth (Suzhou) Co., Ltd.",
+      "amount": 8450.5,
+      "deliver_date": "2026-12-15"
+    }
+  },
+  {
+    "id": "EX005",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "自由文本",
+    "difficulty": "hard",
+    "text": "采购订单 PO-2027-0001\n金额 3,200 元\n交付日期 2027-01-08",
+    "expected": {
+      "order_no": "PO-2027-0001",
+      "supplier": null,
+      "amount": 3200,
+      "deliver_date": "2027-01-08"
+    }
+  },
+  {
+    "id": "EX006",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "键值列表",
+    "difficulty": "hard",
+    "text": "采购单号：PO-2026-0913\n供应商：苏州精工零部件有限公司\n金额：1２,800.00\n交期：2026-11-06",
+    "expected": {
+      "order_no": "PO-2026-0913",
+      "supplier": "苏州精工零部件有限公司",
+      "amount": 12800.0,
+      "deliver_date": "2026-11-06"
+    }
+  },
+  {
+    "id": "EX008",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "含干扰段落",
+    "difficulty": "hard",
+    "text": "采购申请单号：PO-2027-0106\n供应商：宁波华翔电子股份有限公司\n备注：以下为历史参考价，不是本次成交金额。\n历史参考价：99,999 元\n本次成交金额：24,500 元\n交付日期：2027-02-01",
+    "expected": {
+      "order_no": "PO-2027-0106",
+      "supplier": "宁波华翔电子股份有限公司",
+      "amount": 24500,
+      "deliver_date": "2027-02-01"
+    }
+  },
+  {
+    "id": "EX009",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "明细表",
+    "difficulty": "hard",
+    "text": "| 单号 | 物料 | 数量 | 单价 |\n| PO-2027-0101 | 轴承 | 40 | 125 |\n| PO-2027-0101 | 密封圈 | 60 | 18 |",
+    "expected": {
+      "order_no": "PO-2027-0101",
+      "item_count": 2,
+      "total_amount": 6080
+    }
+  },
+  {
+    "id": "EX010",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "中文大写日期",
+    "difficulty": "hard",
+    "text": "订单号：PO-2027-0202\n供应商：宁波华翔\n金额：7,800\n交付：二〇二七年二月十日",
+    "expected": {
+      "order_no": "PO-2027-0202",
+      "supplier": "宁波华翔",
+      "amount": 7800,
+      "deliver_date": "2027-02-10"
+    }
+  },
+  {
+    "id": "EX011",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "全角字符",
+    "difficulty": "normal",
+    "text": "订单号：ＰＯ－２０２７－０３０５\n供应商：上海汽车零部件有限公司\n金额：１５６００\n交付日期：２０２７－０３－２０",
+    "expected": {
+      "order_no": "PO-2027-0305",
+      "supplier": "上海汽车零部件有限公司",
+      "amount": 15600,
+      "deliver_date": "2027-03-20"
+    }
+  },
+  {
+    "id": "EX012",
+    "category": "字段提取",
+    "language": "zh",
+    "layout": "中文大写金额",
+    "difficulty": "hard",
+    "text": "单号：PO-2027-0404\n供应商：常州星宇车灯股份有限公司\n金额：人民币壹万贰仟捌佰元整\n交期：2027-04-18",
+    "expected": {
+      "order_no": "PO-2027-0404",
+      "supplier": "常州星宇车灯股份有限公司",
+      "amount": 12800,
+      "deliver_date": "2027-04-18"
+    }
+  },
+  {
+    "id": "EX013",
+    "category": "字段提取",
+    "language": "de",
+    "layout": "键值列表",
+    "difficulty": "hard",
+    "text": "Bestellnummer: PO-2027-0512\nLieferant: Bosch Rexroth AG\nBetrag: 1.234,56 €\nLiefertermin: 15.03.2027",
+    "expected": {
+      "order_no": "PO-2027-0512",
+      "supplier": "Bosch Rexroth AG",
+      "amount": 1234.56,
+      "deliver_date": "2027-03-15"
+    }
+  },
+  {
+    "id": "EX014",
+    "category": "字段提取",
+    "language": "de",
+    "layout": "键值列表",
+    "difficulty": "hard",
+    "text": "Rechnung Nr.: RE-2027-0088\nLieferant: Festo SE & Co. KG\nGesamtbetrag: EUR 9.876,54\nLiefertermin: 30.04.2027",
+    "expected": {
+      "order_no": "RE-2027-0088",
+      "supplier": "Festo SE & Co. KG",
+      "amount": 9876.54,
+      "deliver_date": "2027-04-30"
+    }
+  }
+]

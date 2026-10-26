@@ -1,0 +1,74 @@
+[
+  {
+    "id": "G001",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "仅根据资料回答，不得使用外部知识或猜测。\n资料：产品名称为青禾盒子，价格为199元。\n问题：价格是多少？\n只回复答案本身，不要解释。",
+    "expected": "199元",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "G002",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "仅根据资料回答。\n资料：产品名称为青禾盒子，支持离线语音识别。\n问题：价格是多少？\n如果资料没有答案，只回复“资料不足”。",
+    "expected": "资料不足",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "G003",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "synthetic",
+    "question": "仅根据资料回答。\n资料：历史参考价为99,999元；本次成交金额为24,500元。\n问题：本次成交金额是多少？\n只回复答案本身。",
+    "expected": "24500元",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "G004",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "synthetic",
+    "question": "仅根据资料回答。\n资料A：价格为199元。\n资料B：价格为299元。\n问题：价格是多少？\n如果资料冲突，只回复“资料冲突”。",
+    "expected": "资料冲突",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "G006",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "仅根据资料回答。\n资料：交付日期为2026年12月1日。\n问题：交付日期是哪天？\n按 YYYY-MM-DD 格式只回复日期。",
+    "expected": "2026-12-01",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "G010",
+    "category": "资料忠实度",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "synthetic",
+    "question": "仅根据资料回答。\n资料：A 比 B 贵，B 的价格是100元。\n问题：A 的价格是多少？\n无法确定时只回复“资料不足”。",
+    "expected": "资料不足",
+    "checks": [
+      "grounded_answer"
+    ]
+  }
+]

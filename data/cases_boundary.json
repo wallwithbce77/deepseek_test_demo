@@ -1,0 +1,82 @@
+[
+  {
+    "id": "B001",
+    "category": "边界测试",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "synthetic",
+    "question": " ",
+    "expected": null,
+    "checks": [
+      "not_empty"
+    ]
+  },
+  {
+    "id": "B002",
+    "category": "边界测试",
+    "language": "en",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "Only output the letter A.",
+    "expected": "A",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "B003",
+    "category": "边界测试",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "😀 这个 emoji 表示什么情绪？只回答一个词。",
+    "expected": [
+      "笑",
+      "开心",
+      "笑脸"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "B004",
+    "category": "边界测试",
+    "language": "zh",
+    "difficulty": "hard",
+    "source": "synthetic",
+    "question": "请用一句话概括下面这段话，不超过 50 个字：\n人工智能正在改变软件测试的方式。测试工程师需要关注模型输出的稳定性、可解释性和业务正确性。传统断言只能验证固定字段，而大模型输出具有随机性，因此需要归一化、字段级评分和聚合指标。团队还需要建设多语言、多版式的数据集，并用门禁和基线来发现退化。这段话重复三遍：人工智能正在改变软件测试的方式。测试工程师需要关注模型输出的稳定性、可解释性和业务正确性。传统断言只能验证固定字段，而大模型输出具有随机性，因此需要归一化、字段级评分和聚合指标。团队还需要建设多语言、多版式的数据集，并用门禁和基线来发现退化。人工智能正在改变软件测试的方式。测试工程师需要关注模型输出的稳定性、可解释性和业务正确性。传统断言只能验证固定字段，而大模型输出具有随机性，因此需要归一化、字段级评分和聚合指标。团队还需要建设多语言、多版式的数据集，并用门禁和基线来发现退化。",
+    "expected": 50,
+    "max_tokens": 4096,
+    "checks": [
+      "length_at_most"
+    ]
+  },
+  {
+    "id": "B005",
+    "category": "边界测试",
+    "language": "de",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "Was ist die Hauptstadt von Frankreich? Antworte nur mit dem Stadtnamen.",
+    "expected": [
+      "Paris",
+      "巴黎"
+    ],
+    "checks": [
+      "contains_expected"
+    ]
+  },
+  {
+    "id": "B007",
+    "category": "边界测试",
+    "language": "fr",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "请只输出一个带重音的字母：é",
+    "expected": "é",
+    "checks": [
+      "grounded_answer"
+    ]
+  }
+]

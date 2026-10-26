@@ -1,0 +1,78 @@
+[
+  {
+    "id": "I001",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "用一句话介绍杭州，不超过 20 个字。只输出这句话，不要解释。",
+    "expected": 20,
+    "checks": [
+      "length_at_most"
+    ]
+  },
+  {
+    "id": "I002",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "只输出一个 JSON 对象，包含 name 和 age 字段；name 为字符串，age 为整数。不要输出 Markdown 代码块或额外解释。",
+    "expected": {
+      "name": "string",
+      "age": "integer"
+    },
+    "checks": [
+      "json_fields"
+    ]
+  },
+  {
+    "id": "I003",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "给出一个做菜方法，严格输出三个步骤。每步单独一行，依次以 1.、2.、3. 开头，每步必须有内容。不要标题、解释或其他文字。",
+    "expected": 3,
+    "checks": [
+      "numbered_steps"
+    ]
+  },
+  {
+    "id": "I005",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "question": "把日期 2026年12月1日 转成 YYYY-MM-DD 格式，只输出日期。",
+    "expected": "2026-12-01",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "I008",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "easy",
+    "source": "synthetic",
+    "question": "从“订单 PO-2026-0912 已创建”中提取订单号，只输出订单号。",
+    "expected": "PO-2026-0912",
+    "checks": [
+      "grounded_answer"
+    ]
+  },
+  {
+    "id": "I009",
+    "category": "指令遵循",
+    "language": "zh",
+    "difficulty": "normal",
+    "source": "synthetic",
+    "system": "你是严格的测试助手，只输出 PASS 或 FAIL，不要解释。",
+    "question": "1+1=2 吗？",
+    "expected": "PASS",
+    "checks": [
+      "grounded_answer"
+    ]
+  }
+]
