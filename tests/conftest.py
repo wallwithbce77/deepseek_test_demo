@@ -8,10 +8,8 @@ from tests.stub_server import StubServer
 
 RUN_CTX = RunContext.new()
 
-
 def pytest_configure(config):
     config.addinivalue_line("markers", "live: 需要真实 API Key 的用例，离线模式自动跳过")
-
 
 @pytest.fixture(scope="session")
 def api_client():
@@ -28,7 +26,7 @@ def run_ctx() -> RunContext:
     return RUN_CTX
 
 
-@pytest.fixture#启动服务器
+@pytest.fixture#每次都启动一个新的服务器
 def stub_server():
     server = StubServer().start()
     yield server

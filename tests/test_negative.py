@@ -19,7 +19,7 @@ def require_real():
         pytest.skip("离线模式不使用真实接口")
 
 
-def test_401_is_returned():
+def test_401_is_returned():#鉴权测试
     with StubServer() as server:
         server.enqueue(401, {"error": {"message": "invalid api key"}})
         with _client(server) as client:
@@ -28,7 +28,7 @@ def test_401_is_returned():
     assert server.calls == 1
 
 
-def test_429_is_retried():
+def test_429_is_retried():#限流重试机制
     with StubServer() as server:
         server.enqueue(429, {"error": {"message": "rate limited"}})
         server.enqueue(200, _ok_body())
@@ -37,7 +37,7 @@ def test_429_is_retried():
     assert result.status_code == 200 and server.calls == 2
 
 
-def test_500_is_retried():
+def test_500_is_retried():#服务器错误重试机制
     with StubServer() as server:
         server.enqueue(500, {"error": {"message": "boom"}})
         server.enqueue(500, {"error": {"message": "boom"}})
@@ -47,7 +47,7 @@ def test_500_is_retried():
     assert result.status_code == 200 and server.calls == 3
 
 
-def test_malformed_json_is_reported():
+def test_malformed_json_is_reported():#脏数据
     with StubServer() as server:
         server.enqueue(200, "not json")
         with _client(server) as client:
@@ -57,20 +57,20 @@ def test_malformed_json_is_reported():
 
 
 @pytest.mark.live
-def test_invalid_api_key_live(require_real):
+def test_invalid_api_key_live(require_real):#DeepSeek 官方服务器的鉴权逻辑
     with DeepseekClient(api_key="sk-invalid-key-for-test") as client:
         result = client.ask("hi")
     assert result.status_code in (401, 403) and result.error_message
 
 
 @pytest.mark.live
-def test_unknown_model_live(api_client, require_real):
+def test_unknown_model_live(api_client, require_real):#官方服务器对非法模型参数的处理
     result = api_client.ask("hi", model="deepseek-not-exist")
     assert result.status_code in (400, 404), result.error_message
 
 
 @pytest.mark.live
-def test_response_contract(api_client, require_real):
+def test_response_contract(api_client, require_real):#官方真实响应体的数据结构
     result = api_client.ask("你好")
     assert result.status_code == 200, result.error_message
     body = result.body

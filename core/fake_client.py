@@ -83,15 +83,13 @@ class FakeClient:
             return "（本次回答被截断）"
 
         try:
-            data = json.loads(content)
+            data = json.loads(content)#字符串转成 Python 字典
         except ValueError:
             return "（本次回答被截断）"
-
         if isinstance(data, dict) and data:
             key = self._random.choice(list(data))
             data[key] = None
-            return json.dumps(data, ensure_ascii=False)
-
+            return json.dumps(data, ensure_ascii=False)#序列化（dumps）成字符串
         return "（本次回答被截断）"
 
     def close(self) -> None:

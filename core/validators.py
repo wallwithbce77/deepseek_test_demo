@@ -102,7 +102,6 @@ def values_equal(actual, expected) -> bool:#数据处理前后比对
 
 
 def score_fields(parsed, expected: dict) -> dict:
-    """字段级打分：逐字段比较，返回可汇总的明细。"""
     if not isinstance(parsed, dict):
         return {
             "fields": {
@@ -184,7 +183,7 @@ def check_json_fields(answer, expected) -> None:
         assert name in data, f"缺少字段 {name}，实际字段 {list(data)}"
         value = data[name]
         if type_name == "integer":
-            ok = isinstance(value, int) and not isinstance(value, bool)
+            ok = isinstance(value, int) and not isinstance(value, bool)#排除bool充当int
         elif type_name == "number":
             ok = isinstance(value, (int, float)) and not isinstance(value, bool)
         else:
@@ -192,7 +191,7 @@ def check_json_fields(answer, expected) -> None:
         assert ok, f"字段 {name} 应为 {type_name}，实际 {type(value).__name__}（{value!r}）"
 
 
-def check_grounded_answer(answer, expected) -> None:
+def check_grounded_answer(answer, expected) -> None:#要求完全相同
     text = normalize_text(_require_text(answer))
     variants = [normalize_text(item) for item in _variants(expected)]
     assert any(values_equal(text, variant) for variant in variants), (

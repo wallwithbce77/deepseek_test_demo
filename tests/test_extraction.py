@@ -3,7 +3,7 @@ import json
 import pytest
 from core import config, dataset
 from core.metrics import p95
-from core.validators import score_fields, strip_fence
+from core.validators import score_fields
 
 SAMPLES = dataset.load("extraction")
 
@@ -62,7 +62,10 @@ def extraction_report(api_client, run_ctx):
                                 response_format={"type": "json_object"}, max_tokens=2048)
         parsed, parse_error = None, ""
         try:
-            parsed = json.loads(strip_fence(result.content))
+            parsed = json.loads(result.content)
+            if not isinstance(parsed, dict):
+                parsed = None
+                parse_error = "JSON 顶层必须是对象"
         except ValueError as exc:
             parse_error = str(exc)[:120]
         scored = score_fields(parsed, sample["expected"])
@@ -96,18 +99,18 @@ def extraction_report(api_client, run_ctx):
     return report
 
 
-def test_all_samples_responded(extraction_report):
+def test_all_samples_responded(extraction_report):#连通性
     failed = [r["id"] for r in extraction_report["rows"] if r["status_code"] != 200]
     assert extraction_report["status_ok_rate"] == 1.0, f"以下样本请求失败：{failed}"
 
 
-def test_json_compliance_gate(extraction_report):
+def test_json_compliance_gate(extraction_report):#json合法
     rate, threshold = extraction_report["json_valid_rate"], config.THRESHOLDS["json_valid_rate"]
     bad = [r["id"] for r in extraction_report["rows"] if not r["json_ok"]]
     assert rate >= threshold, f"JSON 合规率 {rate:.2%} 低于 {threshold:.2%}；不合规：{bad}"
 
 
-def test_field_accuracy_gate(extraction_report):
+def test_field_accuracy_gate(extraction_report):#准确度
     accuracy, threshold = extraction_report["field_accuracy"], config.THRESHOLDS["field_accuracy"]
     per_field = {name: stat["accuracy"] for name, stat in extraction_report["fields"].items()}
     assert accuracy >= threshold, f"字段准确率 {accuracy:.2%} 低于 {threshold:.2%}；逐字段：{per_field}"

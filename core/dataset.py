@@ -22,7 +22,7 @@ def load(kind: str) -> list[dict]:
     with path.open(encoding="utf-8") as handle:
         data = json.load(handle)
     if not isinstance(data, list):
-        raise TypeError(f"{path.name}顶层必须是json")
+        raise TypeError(f"{path.name}json顶层必须数组/列表")
     return data
 
 def chat_cases() -> list[dict]:
